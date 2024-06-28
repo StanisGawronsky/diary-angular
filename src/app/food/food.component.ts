@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
+import { FoodService } from '../food.service';
+import { AsyncPipe } from '@angular/common';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-food',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
+  providers:[FoodService],
   templateUrl: './food.component.html',
-  styleUrl: './food.component.scss'
+  styleUrl: './food.component.scss',
 })
-export class FoodComponent {
 
+export class FoodComponent {
+  readonly name$ = this.foodService.name.pipe(tap(console.log))
+  constructor(private foodService: FoodService ){
+  }
 }
